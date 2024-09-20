@@ -23,6 +23,12 @@ function App() {
     setPreferredCities(storedCities);
   }, []);
 
+  useEffect(() => {
+    if (city) {
+      fetchWeatherData(city);
+    }
+  }, [unit]);
+
   const fetchWeatherData = async (cityName) => {
     setLoading(true);
     try {

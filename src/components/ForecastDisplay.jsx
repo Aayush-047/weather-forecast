@@ -6,10 +6,6 @@ const { Text, Title } = Typography;
 function ForecastDisplay({ data, unit }) {
   const dailyForecasts = data.list.filter((item, index) => index % 8 === 0).slice(0, 3);
 
-  const convertTemp = (temp) => {
-    return unit === 'metric' ? temp : (temp * 9/5) + 32;
-  };
-
   return (
     <Card title={<Title level={4}>3-Day Forecast</Title>} style={{ marginTop: 16 }}>
       <Row gutter={[16, 16]}>
@@ -22,7 +18,7 @@ function ForecastDisplay({ data, unit }) {
                 alt={forecast.weather[0].description}
                 style={{ width: 50, height: 50 }}
               />
-              <Title level={3}>{Math.round(convertTemp(forecast.main.temp))}°{unit === 'metric' ? 'C' : 'F'}</Title>
+              <Title level={3}>{Math.round(forecast.main.temp)}°{unit === 'metric' ? 'C' : 'F'}</Title>
               <Text>{forecast.weather[0].description}</Text>
             </Card>
           </Col>

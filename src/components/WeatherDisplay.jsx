@@ -5,7 +5,7 @@ const { Text, Title } = Typography;
 
 function WeatherDisplay({ data, unit }) {
   const { name, main, weather } = data;
-  const temperature = unit === 'metric' ? main.temp : (main.temp * 9/5) + 32;
+  const temperature = main.temp;
   const description = weather[0].description;
   const icon = `http://openweathermap.org/img/wn/${weather[0].icon}.png`;
 
