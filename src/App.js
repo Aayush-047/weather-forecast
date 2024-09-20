@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Layout, Typography, message, Spin } from 'antd';
 import CitySearch from './components/CitySearch';
 import WeatherDisplay from './components/WeatherDisplay';
@@ -23,13 +23,9 @@ function App() {
     setPreferredCities(storedCities);
   }, []);
 
-  useEffect(() => {
-    if (city) {
-      fetchWeatherData(city);
-    }
-  }, [unit]);
+  
 
-  const fetchWeatherData = async (cityName) => {
+  const fetchWeatherData = useCallback( async (cityName) => {
     setLoading(true);
     try {
       const weatherData = await fetchWeather(cityName, unit);
@@ -43,7 +39,13 @@ function App() {
     } finally {
       setLoading(false);
     }
-  };
+  },[unit])
+
+  useEffect(() => {
+    if (city) {
+      fetchWeatherData(city);
+    }
+  }, [unit,fetchWeatherData,city]);
 
   const handleCitySearch = (cityName) => {
     fetchWeatherData(cityName);
