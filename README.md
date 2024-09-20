@@ -2,6 +2,10 @@
 
 This is a simple weather forecast application built using React. It allows users to search for a city's weather, toggle between Celsius and Fahrenheit, and save their favorite cities in local storage for quick access. The app uses the OpenWeatherMap API to fetch real-time weather data.
 
+## Deployment
+The app is deployed on Netlify at the following URL:
+[Weather Forecast App on Netlify](https://aayush-khunger-weather-app.netlify.app/)
+
 ## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
