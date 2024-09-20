@@ -4,7 +4,7 @@ This is a simple weather forecast application built using React. It allows users
 
 ## Deployment
 The app is deployed on Netlify at the following URL:
-[Weather Forecast App on Netlify](https://aayush-khunger-weather-app.netlify.app/)
+[Weather Forecast App on Netlify](https://main--aayush-khunger-weather-app.netlify.app/)
 
 ## Getting Started with Create React App
 
