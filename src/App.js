@@ -17,6 +17,7 @@ function App() {
   const [unit, setUnit] = useState('metric'); 
   const [loading, setLoading] = useState(false);
   const [preferredCities, setPreferredCities] = useState([]);
+  let cache={}
 
   useEffect(() => {
     const storedCities = JSON.parse(localStorage.getItem('preferredCities') || '[]');
@@ -25,27 +26,42 @@ function App() {
 
   
 
-  const fetchWeatherData = useCallback( async (cityName) => {
-    setLoading(true);
-    try {
-      const weatherData = await fetchWeather(cityName, unit);
-      const forecastData = await fetchForecast(cityName, unit);
+  const fetchWeatherData = async (cityName) => {
+  setLoading(true);
+  
+  if (cityName in cache) {
+    setWeatherData(cache[cityName].weather);
+    setForecastData(cache[cityName].forecast);
+    setCity(cityName);
+    setLoading(false);
+    return;
+  }
 
-      setWeatherData(weatherData);
-      setForecastData(forecastData);
-      setCity(cityName);
-    } catch (err) {
-      message.error(err.message);
-    } finally {
-      setLoading(false);
-    }
-  },[unit])
+  try {
+    const [weather, forecast] = await Promise.all([
+      fetchWeather(cityName, unit),
+      fetchForecast(cityName, unit)
+    ]);
+    
+    setWeatherData(weather);
+    setForecastData(forecast);
+    setCity(cityName);
+    
+    cache[cityName] = { weather, forecast };
+
+    setLoading(false);
+  } catch (err) {
+    message.error(err.message);
+    setLoading(false);
+  }
+};
+
 
   useEffect(() => {
     if (city) {
       fetchWeatherData(city);
     }
-  }, [unit,fetchWeatherData,city]);
+  }, [unit,city]);
 
   const handleCitySearch = (cityName) => {
     fetchWeatherData(cityName);
