@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout, Typography, message, Spin } from 'antd';
 import CitySearch from './components/CitySearch';
 import WeatherDisplay from './components/WeatherDisplay';
@@ -61,6 +61,7 @@ function App() {
     if (city) {
       fetchWeatherData(city);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [unit,city]);
 
   const handleCitySearch = (cityName) => {
